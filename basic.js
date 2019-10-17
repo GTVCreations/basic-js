@@ -1,4 +1,4 @@
-/*! basic.js v0.1.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v0.2.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -20,12 +20,59 @@
     var Basic = {};
 
     // Version
-    Basic.version = "0.1.0";
+    Basic.version = "0.2.0";
 
     // Where Am I
     Basic.isBrowser = (typeof window === "object") ? true : false;
     Basic.isEmbed = (typeof window === "object" && (window.self !== window.top)) ? true : false;
     Basic.isNode = (typeof process === "object") ? true : false;
+
+    // Check the Input is Array
+    Basic.isArray = function(aInputArr) {
+        var inputArr = aInputArr;
+        return (inputArr instanceof Array) ? true : false;
+    };
+
+    // Sort Array of Numbers in Ascending Order
+    Basic.sortNum = function(aArrOfNum) {
+        var numArr = aArrOfNum;
+        // concat() return new array. It doesn't affect existing array
+		return numArr.concat().sort(function(a, b) {return a-b});
+    };
+
+    // Sort Array of Numbers in Descending Order
+    Basic.rsortNum = function(aArrOfNum) {
+        var numArr = aArrOfNum;
+        // concat() return new array. It doesn't affect existing array
+        return numArr.concat().sort(function(a, b) {return b-a});
+    };
+
+    // Remove Duplicate Entries in Array
+    Basic.uniqueArr = function(aArrOfAny) {
+        var anyArr = aArrOfAny;
+        return anyArr.filter(function(item, pos) {
+            return anyArr.indexOf(item) == pos;
+        });
+    };
+
+    // Remove Particular Values in Array
+    Basic.delArrVal = function(aArrOfAny, aRmValArrOfAny) {
+        var anyArr = aArrOfAny;
+        var remArr = aRmValArrOfAny;
+
+        anyArr = anyArr.concat();
+
+        for(var i = 0; i < remArr.length; i++) {
+            for(var j = 0; j < anyArr.length; j++) {
+                if(anyArr[j] === remArr[i]) {
+                    anyArr.splice(j, 1);
+                    j = j-1;
+                }
+            }
+        }
+
+        return anyArr;
+    };
     
     return Basic;
 
