@@ -31,7 +31,7 @@ import * as Basic from "./basic";
 ]
 ```
 
-3. Now you can refer the external js in any of your projects components
+3. Now you can refer the external js in any of your project components
 
 ```bash
 ...
