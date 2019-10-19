@@ -1,4 +1,4 @@
-/*! basic.js v0.3.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v0.4.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -20,7 +20,7 @@
     var Basic = {};
 
     // Version
-    Basic.version = "0.3.0";
+    Basic.version = "0.4.0";
 
     // Where Am I
     Basic.isBrowser = (typeof window === "object") ? true : false;
@@ -113,6 +113,45 @@
 			highval: numArr[numArr.length-1], // highest value
 			qi: q3 - q1 // interquartile (Q3 - Q1)
 		};
+    };
+
+    // Generate Random Numbers from Min to Max Values
+    Basic.genRandom = function(aMinNum, aMaxNum) {
+        var min = Math.ceil(aMinNum),
+            max = Math.floor(aMaxNum);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    // Get Time
+    Basic.getTime = function(aBoolean) {
+        var periods = aBoolean,
+        date = new Date(),
+		hh = date.getHours(),
+		mm = date.getMinutes(),
+        ss = date.getSeconds(),
+		pp = (hh < 12) ? "AM" : "PM";
+        
+        if (periods === true) hh = (hh > 12) ? hh - 12 : ((hh == 0) ? 12 : hh);
+		
+		if (ss < 10) ss = "0" + ss;
+		if (mm < 10) mm = "0" + mm;
+		if (hh < 10) hh = "0" + hh;
+		
+		ss = ss.toString();
+		mm = mm.toString();
+		hh = hh.toString();
+		
+		return (periods == true) ? {hh: hh, mm: mm, ss: ss, pp: pp} : {hh: hh, mm: mm, ss: ss};
+    };
+
+    // Convert String to URL Friendly
+    Basic.urlFriendly = function(aString) {
+        var str = aString; // Input
+        str = str.replace(/[^a-zA-Z ]/g, "");   // Special Characters Removed
+        str = str.replace(/\s+/g, " ");         // Consequtive Spaces Removed
+        str = str.replace(/^\s+|\s+$/g, "");    // Space in Begining and End was Removed
+        str = str.replace(/\s/g, "-");          // Replace Spaces with Hypens
+        return str.toLowerCase();
     };
     
     return Basic;
