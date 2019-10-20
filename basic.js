@@ -1,4 +1,4 @@
-/*! basic.js v0.4.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v0.4.1 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -20,7 +20,7 @@
     var Basic = {};
 
     // Version
-    Basic.version = "0.4.0";
+    Basic.version = "0.4.1";
 
     // Where Am I
     Basic.isBrowser = (typeof window === "object") ? true : false;
@@ -147,10 +147,11 @@
     // Convert String to URL Friendly
     Basic.urlFriendly = function(aString) {
         var str = aString; // Input
-        str = str.replace(/[^a-zA-Z ]/g, "");   // Special Characters Removed
+        str = str.replace(/[^a-zA-Z -]/g, "");  // Special Characters Removed
         str = str.replace(/\s+/g, " ");         // Consequtive Spaces Removed
         str = str.replace(/^\s+|\s+$/g, "");    // Space in Begining and End was Removed
         str = str.replace(/\s/g, "-");          // Replace Spaces with Hypens
+        str = str.replace(/-+/g, "-");          // Consequtive Spaces Hypens
         return str.toLowerCase();
     };
     
