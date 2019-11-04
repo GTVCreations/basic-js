@@ -1,4 +1,4 @@
-/*! basic.js v0.4.3 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v0.5.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -16,21 +16,45 @@
 
 })(this, function () {
 
-    // Object
+    // Object `Basic`
     var Basic = {};
 
-    // Version
-    Basic.version = "0.4.3";
+    // Check `Version`
+    Basic.version = "0.5.0";
 
-    // Where Am I
-    Basic.isBrowser = (typeof window === "object") ? true : false;
-    Basic.isEmbed = (typeof window === "object" && (window.self !== window.top)) ? true : false;
-    Basic.isNode = (typeof process === "object") ? true : false;
+    // Check `Where Am I`
+    Basic.isBrowser = (typeof window === "object");
+    Basic.isEmbed = (typeof window === "object" && (window.self !== window.top));
+    Basic.isNode = (typeof process === "object");
 
-    // Check the Input is Array
-    Basic.isArray = function (aInputArr) {
-        var inputArr = aInputArr;
-        return (inputArr instanceof Array) ? true : false;
+    // Check the Input is `Boolean`
+    Basic.isBoolean = function (aInput) {
+        var input = aInput;
+        return (typeof input === "boolean");
+    };
+
+    // Check the Input is `Number`
+    Basic.isNumber = function (aInput) {
+        var input = aInput;
+        return (typeof input === "number" && !isNaN(input));
+    };
+
+    // Check the Input is `String`
+    Basic.isString = function (aInput) {
+        var input = aInput;
+        return (typeof input === "string");
+    };
+
+    // Check the Input is `Array`
+    Basic.isArray = function (aInput) {
+        var input = aInput;
+        return (input instanceof Array);
+    };
+
+    // Check the Input is `Object`
+    Basic.isObject = function (aInput) {
+        var input = aInput;
+        return (input && typeof input === "object" && !(input instanceof Array)) ? true : false;
     };
 
     // Sort Array of Numbers in Ascending Order
@@ -89,14 +113,14 @@
         return (aArrOfNum != 0) ? (Basic.sum(numArr) / numArr.length) : numArr.length;
     };
 
-    // Median
+    // Calculate `Median`
     Basic.median = function (aArrOfNum) {
         var numArr = aArrOfNum;
         numArr = Basic.sortNum(numArr);
         return (numArr.length % 2 == 0) ? (numArr[(numArr.length / 2) - 1] + numArr[(numArr.length / 2)]) / 2 : numArr[Math.floor(numArr.length / 2)];
     };
 
-    // Quartile
+    // Calculate `Quartile`
     Basic.quartile = function (aArrOfNum) {
         var numArr = aArrOfNum;
         numArr = Basic.sortNum(numArr);
@@ -115,14 +139,14 @@
         };
     };
 
-    // Generate Random Numbers from Min to Max Values
+    // Generate Random Numbers from `Min` to `Max` Values
     Basic.genRandom = function (aMinNum, aMaxNum) {
         var min = Math.ceil(aMinNum),
             max = Math.floor(aMaxNum);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
-    // Get Time
+    // Get `Time`
     Basic.getTime = function (aBoolean) {
         var periods = aBoolean,
             date = new Date(),
@@ -141,23 +165,30 @@
         mm = mm.toString();
         hh = hh.toString();
 
-        return (periods == true) ? { hh: hh, mm: mm, ss: ss, pp: pp } : { hh: hh, mm: mm, ss: ss };
+        return (periods == true) ? { "hh": hh, "mm": mm, "ss": ss, "pp": pp } : { "hh": hh, "mm": mm, "ss": ss };
     };
 
     // Convert String to URL Friendly
-    Basic.urlFriendly = function (aString, aCaseSense) {
-        var str = aString; // Input: String
-        var caseSense = (aCaseSense === true) ? true : false;   // CaseSense: Boolean
+    Basic.urlFriendly = function (aString, aOptions) {
+        var str = Basic.isString(aString) ? aString : "";           // String
+        var options = Basic.isObject(aOptions) ? aOptions : {};   // Object
 
-        str = str.replace(/[^a-zA-Z0-9 -]/g, "");               // Special Characters Removed Except Hypens
-        str = str.replace(/\s/g, "-");                          // Replace Spaces with Hypens
-        str = str.replace(/-+/g, "-");                          // Consequtive Hypens Removed
-        str = str.replace(/^-+|-+$/g, "");                      // Hypens in Begining and End was Removed
+        // String Length
+        var defaultMaxLength = 45;
+        var maxStrLength = (!isNaN(options.maxStrLength) && options.maxStrLength > 0) ? options.maxStrLength : defaultMaxLength;
 
-        return (caseSense) ? str : str.toLowerCase();
+        str = str.slice(0, maxStrLength);           // Slice String to Allowed Max Character
+        str = str.replace(/\b[a-zA-Z]\b/g, "");     // Remove Single Letter Word
+
+        str = str.replace(/[^a-zA-Z0-9 -]/g, "");   // Special Characters Removed Except Hypens
+        str = str.replace(/\s/g, "-");              // Replace Spaces with Hypens
+        str = str.replace(/-+/g, "-");              // Consequtive Hypens Removed
+        str = str.replace(/^-+|-+$/g, "");          // Hypens in Begining and End was Removed
+
+        return (options.charCase === true) ? str : str.toLowerCase();
     };
 
-    // Return Object
+    // Return `Object`
     return Basic;
 
 });
