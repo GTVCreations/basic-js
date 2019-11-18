@@ -1,4 +1,4 @@
-/*! basic.js v0.5.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v0.5.1 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -20,7 +20,7 @@
     var Basic = {};
 
     // Check `Version`
-    Basic.version = "0.5.0";
+    Basic.version = "0.5.1";
 
     // Check `Where Am I`
     Basic.isBrowser = (typeof window === "object");
@@ -171,19 +171,19 @@
     // Convert String to URL Friendly
     Basic.urlFriendly = function (aString, aOptions) {
         var str = Basic.isString(aString) ? aString : "";           // String
-        var options = Basic.isObject(aOptions) ? aOptions : {};   // Object
+        var options = Basic.isObject(aOptions) ? aOptions : {};     // Object
 
         // String Length
         var defaultMaxLength = 45;
         var maxStrLength = (!isNaN(options.maxStrLength) && options.maxStrLength > 0) ? options.maxStrLength : defaultMaxLength;
 
-        str = str.slice(0, maxStrLength);           // Slice String to Allowed Max Character
-        str = str.replace(/\b[a-zA-Z]\b/g, "");     // Remove Single Letter Word
-
         str = str.replace(/[^a-zA-Z0-9 -]/g, "");   // Special Characters Removed Except Hypens
         str = str.replace(/\s/g, "-");              // Replace Spaces with Hypens
         str = str.replace(/-+/g, "-");              // Consequtive Hypens Removed
         str = str.replace(/^-+|-+$/g, "");          // Hypens in Begining and End was Removed
+
+        str = str.slice(0, maxStrLength);           // Slice String to Allowed Max Character
+        str = str.replace(/\b[a-zA-Z]\b/g, "");     // Remove Single Letter Word
 
         return (options.charCase === true) ? str : str.toLowerCase();
     };
