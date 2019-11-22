@@ -1,4 +1,4 @@
-/*! basic.js v0.5.1 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v0.6.0 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -187,6 +187,120 @@
 
         return (options.charCase === true) ? str : str.toLowerCase();
     };
+
+    // Check the Number is `Prime`
+    Basic.isPrime = function (aNumber) {
+        var n,
+            i,
+            flag = true;
+
+        n = parseInt(aNumber);
+
+        if (n == 0 || n == 1) {
+            return false;       // Prime Number
+        } else {
+            for (i = 2; i <= n - 1; i++) {
+                if (n % i == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            // Check flag and return
+            if (flag == true) {
+                return true;    // Prime Number
+            }
+            else {
+                return false;   // Not Prime Number
+            }
+        }
+    };
+
+    // `Linear Search` for Array
+    Basic.linearSearch = function (aArrOfAny, aElemToFind) {
+        var arr = aArrOfAny,
+            len = aArrOfAny.length,
+            elem = aElemToFind,
+            i;
+
+        for (i = 0; i < len; i++) {
+            if (arr[i] == elem) {
+                return i;
+            }
+        }
+
+        return -1;
+    };
+
+    // `Binary Search` for Array of Numbers - Input should be Sorted Array
+    Basic.binarySearch = function (aSortedArrOfNum, aElemToFind) {
+        var arr = aSortedArrOfNum,
+            lowIndex = 0,
+            highIndex = arr.length - 1,
+            elem = aElemToFind;
+
+        while (lowIndex <= highIndex) {
+            var midIndex = Math.floor((lowIndex + highIndex) / 2);
+
+            if (arr[midIndex] == elem) {
+                return midIndex;
+            } else if (arr[midIndex] < elem) {
+                lowIndex = midIndex + 1;
+            } else {
+                highIndex = midIndex - 1;
+            }
+        }
+
+        return -1;
+    };
+
+    // `Bubble Sort` for Array of Numbers
+    Basic.bubbleSort = function (aArrOfNum) {
+        var arr = aArrOfNum.slice(),
+            len = arr.length - 1;
+
+        do {
+            var swapped = false;
+
+            for (var i = 0; i < len; i++) {
+                if (arr[i] > arr[i + 1]) {
+
+                    var temp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = temp;
+
+                    swapped = true;
+                }
+            }
+        }
+
+        while (swapped === true);
+
+        return arr;
+    };
+
+    // `Quick Sort` for Array of Numbers
+    Basic.quickSort = function (aArrOfNum) {
+        var arr = aArrOfNum,
+            smaller = [],
+            larger = [];
+
+        if (arr.length <= 1) {
+            return arr;
+        }
+
+        for (var i = 1; i < arr.length; i++) {
+            if (arr[i] < arr[0]) {
+                smaller.push(arr[i]);
+            }
+
+            if (arr[i] >= arr[0]) {
+                larger.push(arr[i]);
+            }
+        }
+
+        return Basic.quickSort(smaller).concat(arr[0], Basic.quickSort(larger));
+    }
 
     // Return `Object`
     return Basic;
