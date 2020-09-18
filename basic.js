@@ -1,4 +1,4 @@
-/*! basic.js v0.6.1 | MIT License | Copyright (c) 2019 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js v2020-09-14-01 | MIT License | Copyright (c) 2014-2020 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -20,7 +20,7 @@
     var Basic = {};
 
     // Check `Version`
-    Basic.version = "0.5.1";
+    Basic.version = "2020-09-14-01";
 
     // Check `Where Am I`
     Basic.isBrowser = (typeof window === "object");
@@ -55,6 +55,38 @@
     Basic.isObject = function (aInput) {
         var input = aInput;
         return (input && typeof input === "object" && !(input instanceof Array)) ? true : false;
+    };
+
+    // Format Bytes
+    Basic.formatBytes = function (aBytes, aDecimals = 2) {
+        var b = aBytes;
+
+        if (aBytes === 0) {
+            return "0 Byte";
+        }
+
+        var k = 1024;
+        var d = (aDecimals < 0) ? 0 : aDecimals;
+        var sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+        var i = Math.floor(Math.log(b) / Math.log(k));
+
+        return parseFloat((b / Math.pow(k, i)).toFixed(d)) + " " + sizes[i];
+    };
+
+    // Get Query String from Object
+    Basic.getQueryStr = function (aObj) {
+        var obj = aObj;
+
+        if (!Basic.isObject(obj)) {
+            return "";
+        }
+
+        var queryStr = Object.keys(obj).map(function (key) {
+            return encodeURIComponent(key) + "=" + encodeURIComponent(obj[key])
+        }).join("&");
+
+        return queryStr;
     };
 
     // Sort Array of Numbers in Ascending Order
@@ -177,7 +209,7 @@
         var defaultMaxLength = 45;
         var maxStrLength = (!isNaN(options.maxStrLength) && options.maxStrLength > 0) ? options.maxStrLength : defaultMaxLength;
 
-        var reduceString = function(aInputStr) {
+        var reduceString = function (aInputStr) {
             var inputStr = aInputStr;
 
             inputStr = inputStr.replace(/\b[a-zA-Z]\b/g, "");           // Remove Single Letter Word
@@ -190,7 +222,7 @@
         };
 
         str = reduceString(reduceString(str).slice(0, maxStrLength));   // Slice String to Allowed Max Character
-        
+
         return (options.charCase === true) ? str : str.toLowerCase();
     };
 

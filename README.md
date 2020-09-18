@@ -2,6 +2,8 @@
 
 Basic JS is a collection of basic and standard logical functions for programmers who are writing the similar logics repeatedly.
 
+Basic JS is also called as javascript utilities library.
+
 # Installation
 
 ### HTML Document
