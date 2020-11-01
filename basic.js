@@ -1,4 +1,4 @@
-/*! basic.js v2020-09-14-01 | MIT License | Copyright (c) 2014-2020 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
+/*! basic.js | MIT License | Copyright (c) 2014-2020 Thiruvikraman Govindarajan | github.com/gtvcreations/basic.js */
 
 // Strict Mode
 "use strict";
@@ -20,7 +20,7 @@
     var Basic = {};
 
     // Check `Version`
-    Basic.version = "2020-09-14-01";
+    Basic.version = "2020-11-01-01";
 
     // Check `Where Am I`
     Basic.isBrowser = (typeof window === "object");
