@@ -57,6 +57,19 @@
         return (input && typeof input === "object" && !(input instanceof Array)) ? true : false;
     };
 
+    // Check the Input is `Array of String`
+    Basic.isArrOfStr = function (aArrOfAny) {
+        var anyArr = aArrOfAny;
+        return (Basic.isArray(anyArr) && anyArr.length) ? anyArr.every(i => (typeof i === "string")) : false;
+    };
+
+    // Check the value exist in `Array`
+    Basic.isFoundInArr = function (aArrOfAny, aInput) {
+        var input = aInput;
+        var anyArr = aArrOfAny;
+        return (anyArr.indexOf(input) > -1) ? true : false;
+    };
+    
     // Format Bytes
     Basic.formatBytes = function (aBytes, aDecimals = 2) {
         var b = aBytes;
